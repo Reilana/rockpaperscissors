@@ -2,6 +2,26 @@
    ACCESSIBILITY & STYLING
    ============================================ */
 
+/* Skip Link - Accessibility feature for keyboard users */
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: 0;
+  background: #0d6efd;
+  color: #ffffff;
+  padding: 8px 16px;
+  text-decoration: none;
+  border-radius: 0 0 6px 0;
+  font-weight: 600;
+  z-index: 100;
+}
+
+.skip-link:focus {
+  top: 0;
+  outline: 3px solid #0d6efd;
+  outline-offset: 2px;
+}
+
 /* Main body styling */
 body {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
@@ -224,6 +244,70 @@ footer.footer a:focus {
   outline-offset: 2px;
   border-radius: 3px;
   padding: 2px 4px;
+}
+
+/* ============================================
+   IMPROVED ACCESSIBILITY FEATURES
+   ============================================ */
+
+/* Reduce motion for users who prefer it */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  
+  .choice-btn,
+  .btn-success {
+    transition: none;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: more) {
+  .choice-btn {
+    border: 2px solid #000;
+  }
+  
+  .choice-btn:focus {
+    outline-width: 4px;
+  }
+  
+  .btn-success {
+    border: 2px solid #000;
+  }
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  body {
+    background-color: #1a1a1a;
+    color: #e0e0e0;
+  }
+  
+  #results {
+    background-color: #2d2d2d;
+    border-color: #444;
+  }
+  
+  #results:not(:empty) {
+    background-color: #1a3a1a;
+    border-color: #2d7d2d;
+  }
+  
+  .instructions {
+    color: #b0b0b0;
+  }
+  
+  footer.footer {
+    background-color: #2d2d2d;
+    border-top-color: #444;
+  }
+  
+  footer.footer p {
+    color: #b0b0b0;
+  }
 }
 
 /* Contrast verification for footer links */
