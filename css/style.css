@@ -285,26 +285,39 @@ footer.footer a:focus {
     background-color: #1a1a1a;
     color: #e0e0e0;
   }
-  
+
+  h1 {
+    color: #ffffff;
+  }
+
   #results {
     background-color: #2d2d2d;
     border-color: #444;
+    color: #e0e0e0;
   }
-  
+
   #results:not(:empty) {
     background-color: #1a3a1a;
     border-color: #2d7d2d;
+    color: #e0e0e0;
   }
-  
+
+  #results[data-gameover="true"] {
+    background-color: #1a3a1a;
+    border-color: #2d7d2d;
+    color: #a3d9a5;
+    font-weight: 700;
+  }
+
   .instructions {
     color: #b0b0b0;
   }
-  
+
   footer.footer {
     background-color: #2d2d2d;
     border-top-color: #444;
   }
-  
+
   footer.footer p {
     color: #b0b0b0;
   }

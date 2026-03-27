@@ -117,19 +117,19 @@ The Rock Paper Scissors game has achieved **excellent accessibility compliance**
 **Impact:** ✅ Better support for users with low vision or astigmatism
 
 #### 6. **No Dark Mode Support** ❌→✅ FIXED
-**WCAG Criterion:** 1.4 Distinguishable  
-**Issue:** No support for dark mode preference, can cause eye strain  
+**WCAG Criterion:** 1.4 Distinguishable
+**Issue:** No support for dark mode preference, can cause eye strain
 **Solution Implemented:**
 ```css
 @media (prefers-color-scheme: dark) {
-  body {
-    background-color: #1a1a1a;
-    color: #e0e0e0;
-  }
-  /* ... dark mode colors adjusted for accessibility ... */
+  body { background-color: #1a1a1a; color: #e0e0e0; }
+  h1 { color: #ffffff; }
+  #results { background-color: #2d2d2d; border-color: #444; color: #e0e0e0; }
+  #results:not(:empty) { background-color: #1a3a1a; border-color: #2d7d2d; color: #e0e0e0; }
+  #results[data-gameover="true"] { background-color: #1a3a1a; border-color: #2d7d2d; color: #a3d9a5; font-weight: 700; }
 }
 ```
-**Impact:** ✅ Better experience for users with photophobia or low vision
+**Impact:** ✅ Better experience for users with photophobia or low vision. All dark mode text colors are explicitly set — including the results div and game-over state — preventing contrast failures from inherited light-mode values.
 
 ---
 
@@ -366,82 +366,3 @@ The Rock Paper Scissors game has achieved **excellent accessibility compliance**
 **Date Completed:** January 28, 2026
 
 For accessibility questions or issues, please contact: [allieclarkdev@gmail.com](mailto:allieclarkdev@gmail.com)
-
-<div id="results" role="status" aria-live="polite"></div>
-```
-
-### 3. **MEDIUM PRIORITY - Heading Hierarchy**
-**Issue:** No skip-to-content link for keyboard users
-**Impact:** Medium - Keyboard users must tab through buttons
-**Solution:** Add a skip link at the top:
-```html
-<a href="#results" class="skip-link">Skip to results</a>
-```
-
-### 4. **LOW PRIORITY - Missing Form Labels**
-**Issue:** No visible text describing what the buttons do
-**Impact:** Low - aria-labels help but visible text is better
-**Solution:** Consider adding descriptive text above buttons:
-```html
-<p>Select your choice:</p>
-```
-
-### 5. **LOW PRIORITY - Button Styling**
-**Issue:** Reset button visibility toggled with `style="display: none"`
-**Impact:** Low - Works fine, but CSS class would be cleaner
-**Solution:** Use CSS classes for better maintainability
-
----
-
-## 📋 WCAG 2.1 Compliance Summary
-
-| Level | Status | Details |
-|-------|--------|---------|
-| **A** | ⚠️ Partial | Missing keyboard focus indicators |
-| **AA** | ⚠️ Partial | Missing aria-live for dynamic updates |
-| **AAA** | ⚠️ Partial | Could improve with additional enhancements |
-
----
-
-## 🔧 Quick Fixes
-
-### Critical (Implement First)
-1. Add focus outline CSS for keyboard navigation
-2. Add `role="status"` and `aria-live="polite"` to results div
-
-### Important (Implement Next)
-3. Add visible text instructions above buttons
-4. Test keyboard navigation (Tab, Enter, Space)
-5. Test with screen reader (NVDA or JAWS)
-
-### Nice to Have
-6. Add skip-to-content link
-7. Use CSS classes instead of inline styles for button visibility
-
----
-
-## Testing Recommendations
-
-### Manual Testing
-- [ ] Navigate using only keyboard (Tab, Shift+Tab, Enter, Space)
-- [ ] Test with NVDA (free screen reader for Windows)
-- [ ] Test with JAWS (if available)
-- [ ] Check color contrast ratios (use WebAIM Contrast Checker)
-
-### Automated Testing
-- [ ] Run Chrome DevTools Lighthouse accessibility audit
-- [ ] Use WAVE browser extension (wave.webaim.org)
-- [ ] Use AXE DevTools browser extension
-
----
-
-## Resources
-- [WCAG 2.1 Guidelines](https://www.w3.org/WAI/WCAG21/quickref/)
-- [MDN Accessibility](https://developer.mozilla.org/en-US/docs/Web/Accessibility)
-- [ARIA Authoring Practices](https://www.w3.org/WAI/ARIA/apg/)
-- [WebAIM](https://webaim.org/)
-
----
-
-**Audit Date:** January 27, 2026
-**Overall Status:** Good Foundation with Recommended Improvements

@@ -1,14 +1,16 @@
-// 1. Create variables to track score (Global Scope)
+// Score tracking - persists across rounds until the game is reset
 let scorePlayer = 0;
 let scoreComputer = 0;
 
-// 2. Create nodes (references) to the HTML elements
+// Cache DOM references once at load time rather than querying on every click
 const rockBtn = document.querySelector("#rock");
 const paperBtn = document.querySelector("#paper");
 const scissorsBtn = document.querySelector("#scissors");
 const resultsDiv = document.querySelector("#results");
 const resetBtn = document.querySelector("#reset");
 
+// Compares both choices and returns a result string
+// The returned string is also used by handleClick to detect wins/losses via startsWith
 function playRound(playerSelection, computerSelection) {
   let playerInput = playerSelection.toLowerCase();
   let computerInput = computerSelection.toLowerCase();
@@ -26,30 +28,28 @@ function playRound(playerSelection, computerSelection) {
   }
 }
 
+// Returns a random choice for the computer each round
 function getComputerChoice() {
   const choices = ["rock", "paper", "scissors"];
   const randomIndex = Math.floor(Math.random() * choices.length);
   return choices[randomIndex];
 }
 
+// Called on every button click — plays a round, updates the score display,
+// and ends the match when either player reaches 5 wins
 function handleClick(playerSelection) {
   const computerSelection = getComputerChoice();
   const result = playRound(playerSelection, computerSelection);
-  
-  // Update the Results Div with the text result
-  resultsDiv.textContent = result;
 
-  // Update Scores (using your existing logic)
   if (result.startsWith("You win")) {
     scorePlayer++;
   } else if (result.startsWith("You lose")) {
     scoreComputer++;
   }
 
-  // Update the Score Display
-  resultsDiv.textContent += ` (Player: ${scorePlayer} - Computer: ${scoreComputer})`;
+  resultsDiv.textContent = `${result} (Player: ${scorePlayer} - Computer: ${scoreComputer})`;
 
-  // Check for a winner (First to 5)
+  // Lock the game once a player hits 5 wins and reveal the reset button
   if (scorePlayer === 5) {
     resultsDiv.textContent = "GAME OVER! YOU WIN THE MATCH!";
     disableButtons();
@@ -61,40 +61,25 @@ function handleClick(playerSelection) {
   }
 }
 
+// Prevents the player from clicking after the match has ended
 function disableButtons() {
   rockBtn.disabled = true;
   paperBtn.disabled = true;
   scissorsBtn.disabled = true;
 }
 
+// Resets scores, clears the display, and re-enables buttons for a new match
 function resetGame() {
-  // 1. Reset Global Scores
   scorePlayer = 0;
   scoreComputer = 0;
-
-  // 2. Reset UI Text
   resultsDiv.textContent = "";
-  
-  // 3. Re-enable Buttons
   rockBtn.disabled = false;
   paperBtn.disabled = false;
   scissorsBtn.disabled = false;
-
-  // 4. Hide the Reset Button again
   resetBtn.style.display = "none";
 }
 
-// 3. Create click listeners for the buttons
-rockBtn.addEventListener("click", () => {
-  handleClick("rock");
-});
-
-paperBtn.addEventListener("click", () => {
-  handleClick("paper");
-});
-
-scissorsBtn.addEventListener("click", () => {
-  handleClick("scissors");
-});
-
+rockBtn.addEventListener("click", () => handleClick("rock"));
+paperBtn.addEventListener("click", () => handleClick("paper"));
+scissorsBtn.addEventListener("click", () => handleClick("scissors"));
 resetBtn.addEventListener("click", resetGame);

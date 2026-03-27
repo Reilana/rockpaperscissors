@@ -58,54 +58,27 @@ rockpaperscissors/
 ### Step 3: JavaScript - Game Logic
 **File**: `js/script.js`
 
-#### Global Variables (Line 1-8):
-```javascript
-let scorePlayer = 0;      // Track player's wins
-let scoreComputer = 0;    // Track computer's wins
-
-// DOM element references
-const rockBtn = document.querySelector("#rock");
-const paperBtn = document.querySelector("#paper");
-const scissorsBtn = document.querySelector("#scissors");
-const resultsDiv = document.querySelector("#results");
-const resetBtn = document.querySelector("#reset");
-```
-
 #### Core Functions:
 
-**1. `playRound(playerSelection, computerSelection)`** (Lines 11-24)
+**1. `playRound(playerSelection, computerSelection)`**
 - Compares player choice with computer choice
-- Returns appropriate message:
-  - "It's a tie!" if both chose the same
-  - "You win! [Choice] beats [Choice]" if player wins
-  - "You lose" if computer wins
+- Returns a result string used both for display and score tracking via `startsWith`
 
-**2. `getComputerChoice()`** (Lines 26-30)
-- Generates random computer choice (rock, paper, or scissors)
-- Uses `Math.random()` for selection
+**2. `getComputerChoice()`**
+- Returns a random choice (rock, paper, or scissors) using `Math.random()`
 
-**3. `handleClick(playerSelection)`** (Lines 32-55)
-- Main game logic function called when player clicks a button
-- Gets computer's choice
-- Calls `playRound()` to determine winner
-- Updates results display
-- Increments score (player or computer)
-- Displays current score
-- Checks for match winner (first to 5 wins)
-- Shows reset button and disables game buttons when match ends
+**3. `handleClick(playerSelection)`**
+- Called on every button click
+- Gets computer's choice, plays the round, updates score, and checks for a match winner (first to 5)
+- Shows reset button and locks choice buttons when match ends
 
-**4. `disableButtons()`** (Lines 57-62)
-- Disables all game buttons when match is over
-- Prevents player from clicking during game over state
+**4. `disableButtons()`**
+- Disables all three choice buttons after the match ends
 
-**5. `resetGame()`** (Lines 64-77)
-- Resets scorePlayer and scoreComputer to 0
-- Clears results display
-- Re-enables all game buttons
-- Hides reset button
-- Allows user to play another match
+**5. `resetGame()`**
+- Resets scores to 0, clears the results display, re-enables buttons, and hides the reset button
 
-#### Event Listeners (Lines 79-88):
+#### Event Listeners:
 ```javascript
 rockBtn.addEventListener("click", () => handleClick("rock"));
 paperBtn.addEventListener("click", () => handleClick("paper"));
@@ -139,21 +112,24 @@ button:focus {
 }
 ```
 - Ensures keyboard users can see which button is focused
-- Uses high-contrast outline
 
 **2. Contrast Ratios** (WCAG AA Compliant):
-- Primary buttons: 5.5:1 ✓ (meets AA standard of 4.5:1)
-- Body text: 15:1 ✓ (far exceeds requirement)
+- Primary buttons: 5.5:1 ✓
+- Body text: 15:1 ✓
 - Instructions text: 8.4:1 ✓
 - Footer links: 5.5:1 ✓
 
-**3. Disabled State**:
-- Buttons are disabled when game ends
-- Visual feedback with reduced opacity
+**3. Dark Mode** (`prefers-color-scheme: dark`):
+- Inverted background and text colors for body and results
+- H1 set to `#ffffff` for full contrast
+- Results div explicitly colored (`#e0e0e0`) to prevent inherited light-mode text
+- Game-over state uses `#a3d9a5` (accessible green) instead of the light-mode dark green
 
-**4. Results Display**:
-- Prominent background color when content is present
-- Border changes to indicate active state
+**4. Disabled State**:
+- Buttons are disabled when game ends with reduced opacity
+
+**5. Results Display**:
+- Changes background and border color when active
 - Minimum 60px height for easy reading
 
 #### Responsive Design:
@@ -327,7 +303,6 @@ Potential improvements for future versions:
 - Create statistics/history tracking
 - Add sound effects and music
 - Implement multiplayer mode
-- Add themes/dark mode
 - Create a leaderboard
 
 ---
