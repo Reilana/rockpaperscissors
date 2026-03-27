@@ -3,11 +3,14 @@ let scorePlayer = 0;
 let scoreComputer = 0;
 
 // Cache DOM references once at load time rather than querying on every click
-const rockBtn = document.querySelector("#rock");
-const paperBtn = document.querySelector("#paper");
-const scissorsBtn = document.querySelector("#scissors");
-const resultsDiv = document.querySelector("#results");
-const resetBtn = document.querySelector("#reset");
+const rockBtn = document.querySelector("#btn-rock");
+const paperBtn = document.querySelector("#btn-paper");
+const scissorsBtn = document.querySelector("#btn-scissors");
+const resetBtn = document.querySelector("#btn-reset");
+const gameResult = document.querySelector("#game-result");   // sr-only aria-live region
+const roundResult = document.querySelector("#round-result"); // visible result text
+const scorePlayerSpan = document.querySelector("#score-player");
+const scoreComputerSpan = document.querySelector("#score-computer");
 
 // Compares both choices and returns a result string
 // The returned string is also used by handleClick to detect wins/losses via startsWith
@@ -47,17 +50,22 @@ function handleClick(playerSelection) {
     scoreComputer++;
   }
 
-  resultsDiv.textContent = `${result} (Player: ${scorePlayer} - Computer: ${scoreComputer})`;
+  scorePlayerSpan.textContent = scorePlayer;
+  scoreComputerSpan.textContent = scoreComputer;
+  roundResult.textContent = result;
+  gameResult.textContent = `${result}. Score: Player ${scorePlayer}, Computer ${scoreComputer}.`;
 
   // Lock the game once a player hits 5 wins and reveal the reset button
   if (scorePlayer === 5) {
-    resultsDiv.textContent = "GAME OVER! YOU WIN THE MATCH!";
+    roundResult.textContent = "Game over — you win the match!";
+    gameResult.textContent = "Game over. You win the match!";
     disableButtons();
-    resetBtn.style.display = "block";
+    resetBtn.classList.remove("hidden");
   } else if (scoreComputer === 5) {
-    resultsDiv.textContent = "GAME OVER! THE COMPUTER WINS!";
+    roundResult.textContent = "Game over — the computer wins!";
+    gameResult.textContent = "Game over. The computer wins!";
     disableButtons();
-    resetBtn.style.display = "block";
+    resetBtn.classList.remove("hidden");
   }
 }
 
@@ -72,11 +80,14 @@ function disableButtons() {
 function resetGame() {
   scorePlayer = 0;
   scoreComputer = 0;
-  resultsDiv.textContent = "";
+  scorePlayerSpan.textContent = 0;
+  scoreComputerSpan.textContent = 0;
+  roundResult.textContent = "";
+  gameResult.textContent = "";
   rockBtn.disabled = false;
   paperBtn.disabled = false;
   scissorsBtn.disabled = false;
-  resetBtn.style.display = "none";
+  resetBtn.classList.add("hidden");
 }
 
 rockBtn.addEventListener("click", () => handleClick("rock"));

@@ -40,20 +40,23 @@ rockpaperscissors/
 **File**: `index.html`
 
 #### Core Elements Added:
-- **H1 Heading**: "Choose Your Weapon" - main page title
-- **Instructions**: Clear text describing how to play
-- **Three Game Buttons**: 
-  - `#rock` - Choose rock
-  - `#paper` - Choose paper
-  - `#scissors` - Choose scissors
-- **Results Display**: `<div id="results">` to show game outcomes
-- **Reset Button**: Hidden button to reset the game when finished
+- **H1 Heading**: "Rock, Paper, Scissors" - main page title
+- **Score Display**: Two separate spans (`#score-player`, `#score-computer`) updated live by JavaScript
+- **Fieldset + Legend**: Groups the three choice buttons semantically for assistive technologies
+- **Three Game Buttons**:
+  - `#btn-rock` - Choose rock (blue)
+  - `#btn-paper` - Choose paper (green)
+  - `#btn-scissors` - Choose scissors (red)
+- **Round Result**: `<div id="round-result">` — visible text showing each round's outcome
+- **Screen Reader Region**: `<div id="game-result" aria-live="polite" class="sr-only">` — separate announcement region for screen readers, keeping visual and spoken output independent
+- **Reset Button**: `#btn-reset` hidden via Tailwind `hidden` class, revealed on game over
 
 #### Accessibility Features:
-- Added `aria-label` attributes to all buttons for screen readers
-- Added `role="status"` and `aria-live="polite"` to results div for dynamic content announcement
-- Proper semantic HTML structure
-- Bootstrap CSS framework for responsive design
+- `<fieldset>` and `<legend class="sr-only">` group choice buttons for screen readers
+- Dual result regions: visible `#round-result` for sighted users, sr-only `#game-result` for screen readers
+- `aria-live="polite"` on the sr-only region announces results without interrupting
+- Tailwind CSS utility classes provide focus rings (`focus:ring-4`) on all buttons
+- Semantic `<main>` landmark wraps all game content
 
 ### Step 3: JavaScript - Game Logic
 **File**: `js/script.js`
@@ -87,55 +90,34 @@ resetBtn.addEventListener("click", resetGame);
 ```
 
 ### Step 4: CSS Styling & Accessibility
-**File**: `css/style.css`
+**Files**: `css/style.css` (custom) + Tailwind CSS CDN (utility classes)
 
-#### Typography & Layout:
-- Font family: System fonts (Apple System, Segoe UI, Roboto)
-- Background color: Light gray (#f5f5f5)
-- Max-width: 800px for optimal readability
-- Centered layout with padding
+#### Layout & Typography:
+- Tailwind utility classes handle layout, spacing, colors, and typography directly in HTML
+- `css/style.css` handles features that Tailwind doesn't cover out of the box
 
-#### Button Styling:
-- Primary color: Blue (#0d6efd)
-- Padding: 12px 24px
-- Border radius: 6px for rounded corners
-- Smooth transitions on hover
+#### Button Styling (Tailwind):
+- Rock: Blue (`bg-blue-600`) with hover and focus ring
+- Paper: Green (`bg-green-600`) with hover and focus ring
+- Scissors: Red (`bg-red-600`) with hover and focus ring
+- All buttons use `focus:ring-4 focus:ring-offset-2` for visible keyboard focus
 
-#### CRITICAL Accessibility Features:
+#### Custom CSS Accessibility Features:
 
-**1. Keyboard Focus Indicators**:
-```css
-button:focus {
-  outline: 3px solid #0d6efd;
-  outline-offset: 2px;
-  box-shadow: 0 0 0 5px rgba(13, 110, 253, 0.25);
-}
-```
-- Ensures keyboard users can see which button is focused
-
-**2. Contrast Ratios** (WCAG AA Compliant):
-- Primary buttons: 5.5:1 ✓
-- Body text: 15:1 ✓
-- Instructions text: 8.4:1 ✓
-- Footer links: 5.5:1 ✓
-
-**3. Dark Mode** (`prefers-color-scheme: dark`):
+**1. Dark Mode** (`prefers-color-scheme: dark`):
 - Inverted background and text colors for body and results
 - H1 set to `#ffffff` for full contrast
 - Results div explicitly colored (`#e0e0e0`) to prevent inherited light-mode text
-- Game-over state uses `#a3d9a5` (accessible green) instead of the light-mode dark green
+- Game-over state uses `#a3d9a5` (accessible green)
 
-**4. Disabled State**:
-- Buttons are disabled when game ends with reduced opacity
+**2. Reduced Motion** (`prefers-reduced-motion: reduce`):
+- Disables all transitions and animations for users with vestibular disorders
 
-**5. Results Display**:
-- Changes background and border color when active
-- Minimum 60px height for easy reading
+**3. High Contrast Mode** (`prefers-contrast: more`):
+- Strengthens button borders and focus outlines
 
-#### Responsive Design:
-- Mobile-friendly breakpoint at 600px
-- Full-width buttons on small screens
-- Adjusted font sizes for readability
+**4. Print Styles**:
+- Optimized output for printing
 
 ### Step 5: Accessibility Audit
 **File**: `ACCESSIBILITY_AUDIT.md`
@@ -155,25 +137,7 @@ button:focus {
 - Color contrast verification
 - Browser compatibility
 
-### Step 6: Footer with Contact Information
-**Added to**: `index.html`
-
-```html
-<footer class="footer">
-  <p>&copy; 2026 <a href="mailto:allieclarkdev@gmail.com">Allison Clark</a> 
-     | <a href="https://allie.me" target="_blank">My Portfolio</a> 
-     | <a href="https://github.com/REILANA" target="_blank">GitHub</a></p>
-</footer>
-```
-
-#### Features:
-- Copyright notice with creator's name
-- Email link (mailto) for contact
-- Portfolio website link
-- GitHub profile link
-- Accessible link styling with focus indicators
-
-### Step 7: Version Control & GitHub Deployment
+### Step 6: Version Control & GitHub Deployment
 
 #### Git Setup:
 ```bash
@@ -216,8 +180,8 @@ git push -u origin main     # Push to GitHub
 ### Technical Features
 - ✅ Clean, organized code structure
 - ✅ Modular JavaScript functions
-- ✅ CSS with accessibility standards
-- ✅ Bootstrap framework integration
+- ✅ Custom CSS with accessibility standards
+- ✅ Tailwind CSS for utility-first styling
 - ✅ Version control with Git
 - ✅ GitHub deployment
 
@@ -227,16 +191,10 @@ git push -u origin main     # Push to GitHub
 
 ### Playing the Game:
 1. **Open** `index.html` in a web browser
-2. **Read** the instructions: "Select your choice below to play against the computer. First to 5 wins!"
-3. **Click** one of three buttons:
-   - Rock
-   - Paper
-   - Scissors
-4. **View** the result showing:
-   - Game outcome (win/lose/tie)
-   - Current score (Player vs Computer)
-5. **Continue** playing until someone reaches 5 wins
-6. **Click** "Reset Game" button to play again
+2. **Click** one of three buttons: Rock, Paper, or Scissors
+3. **View** the round result below the buttons and the live score at the top
+4. **Continue** playing until someone reaches 5 wins
+5. **Click** "Play Again" to reset and start a new match
 
 ### Keyboard Navigation:
 1. Press **Tab** to move between buttons
@@ -251,7 +209,7 @@ git push -u origin main     # Push to GitHub
 - **HTML5**: Semantic markup and structure
 - **CSS3**: Styling, accessibility, responsive design
 - **JavaScript (ES6)**: Game logic, event handling, DOM manipulation
-- **Bootstrap 5.3**: CSS framework for responsive design
+- **Tailwind CSS**: Utility-first CSS framework (CDN)
 - **Git**: Version control
 - **GitHub**: Code repository and deployment
 
