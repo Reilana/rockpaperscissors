@@ -94,3 +94,18 @@ rockBtn.addEventListener("click", () => handleClick("rock"));
 paperBtn.addEventListener("click", () => handleClick("paper"));
 scissorsBtn.addEventListener("click", () => handleClick("scissors"));
 resetBtn.addEventListener("click", resetGame);
+
+// Fetches the high score from the server and announces it via the sr-only aria-live region
+// so screen readers pick it up without affecting the visible UI
+async function fetchHighScore() {
+  try {
+    const response = await fetch('/api/score');
+    const data = await response.json();
+    gameResult.textContent = `Server connected successfully. The current high score is ${data.highScore}.`;
+  } catch (error) {
+    // Logs the error without crashing the game if the server is unreachable
+    console.error("Could not fetch high score:", error);
+  }
+}
+
+fetchHighScore();
