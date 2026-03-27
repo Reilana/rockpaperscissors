@@ -12,19 +12,21 @@ This is a single-player Rock Paper Scissors game where you compete against the c
 
 ```
 rockpaperscissors/
-├── index.html                 # Main HTML file
-├── css/
-│   └── style.css             # All styling and accessibility features
-├── js/
-│   └── script.js             # Game logic and interactivity
+├── public/
+│   ├── index.html            # Main HTML file
+│   ├── css/
+│   │   └── style.css         # Custom styling and accessibility features
+│   └── js/
+│       └── script.js         # Game logic and interactivity
 ├── README.md                 # This file
 └── ACCESSIBILITY_AUDIT.md    # Detailed accessibility audit report
 ```
 
 ### Folder Organization
 
-- **CSS Folder**: Contains all stylesheet files for styling and responsive design
-- **JS Folder**: Contains all JavaScript files for game logic and event handling
+- **public/**: All files served to the browser
+- **public/css/**: Custom stylesheet (dark mode, reduced motion, high contrast, print)
+- **public/js/**: Game logic and event handling
 
 ---
 
