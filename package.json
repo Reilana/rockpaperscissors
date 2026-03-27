@@ -1,0 +1,25 @@
+{
+  "name": "rockpaperscissors",
+  "version": "1.0.0",
+  "description": "A fully accessible, interactive Rock Paper Scissors game built with HTML, CSS, and JavaScript. This project demonstrates modern web development practices including accessibility standards (WCAG 2.1), semantic HTML, and clean code organization.",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/REILANA/rockpaperscissors.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/REILANA/rockpaperscissors/issues"
+  },
+  "homepage": "https://github.com/REILANA/rockpaperscissors#readme",
+  "dependencies": {
+    "express": "^5.2.1"
+  }
+}
